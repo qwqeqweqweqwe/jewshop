@@ -1,0 +1,324 @@
+.center{
+    display:block;
+    margin: 0 auto;
+}
+
+.without_space{
+    margin: 0;
+    padding: 0;
+}
+.without_box:focus{
+    box-shadow: none;
+}
+
+.dark-green{
+    background: #268371;
+    color: white;
+}
+.light-green{
+    background-color: #459989;
+    color: white;
+}
+.pretty-green{
+    background-color: #5DB4A3;
+    color: white;
+}
+.title-gray{
+    color: #7E7979;
+}
+.price-gray{
+    color: #A5A5A5;
+}
+
+#search_icon{
+    background: white;
+    fill: #CBCBCB;
+    border: 0;
+    border-radius: 0;
+}
+a>svg:hover{
+    fill: #268371;
+}
+#search_input{
+    border: 0;
+}
+#search_btn{
+    border-radius: 0;
+}
+
+.btn-underline:hover{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+.btn-detail:hover{
+    background-color: #268371;
+    color: white;
+}
+.btn-collapse:hover{
+    background-color: #459989;
+}
+
+.input_price{
+    border: 0;
+}
+ul{
+    padding: 0px;
+}
+li{
+    list-style-type: none;
+}
+/*---------  Меню  ---------*/
+#menu li.nav-item a{
+    padding: 0px;
+    font-size: 20px;
+}
+/*---------  Главная  ---------*/
+section#news{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#news h6{
+    margin: 5px 0px 20px 0px;
+}
+#news .card-item {
+    padding: 15px;
+}
+#news .card-footer{
+    border-top: 0px;
+    background: white;
+}
+#news .card-img-top {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+}
+
+section#reviews{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#reviews h6{
+    margin: 5px 0px 20px 0px;
+}
+#reviews .card {
+    margin: 0 1em;
+    border: none;
+    background: #b7d8d1;
+}
+#reviews .card-body{
+    padding: 5px;
+}
+#reviews .carousel-control-prev,
+#reviews .carousel-control-next {
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+/*---------  Каталог  ---------*/
+section#catalog{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#catalog .container-fluid{
+    padding: 0px;
+}
+#catalog .container-fluid .row{
+    margin: 0px;
+}
+#catalog .container#filters{
+    padding: 10px;
+}
+#col-filter{
+    padding: 0px;
+}
+#filters .input_price{
+    width: 60px;
+}
+#catalog .container#jewelries{
+    padding: 0px;
+}
+#catalog h4, .filter-item{
+    margin-top: 15px;
+}
+#col-jewelries{
+    padding: 0px;
+}
+#jewelries h6{
+    margin: 5px 0px 20px 0px;
+}
+#jewelries .card-item {
+    padding: 15px;
+}
+#jewelries .card-footer{
+    border-top: 0px;
+    background: white;
+}
+#jewelries .card-img-top {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+}
+/*---------  Подробное описание  ---------*/
+section#view{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#view .title{
+    margin: 20px 0px;
+}
+#view .price{
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+#view .tag{
+    border-radius: 10px;
+}
+#view .row{
+    margin: 0px;
+}
+#view .tags{
+    margin-top: 5px;
+}
+#view #myTab{
+    border-bottom: 0;
+}
+#view #myTab button{
+    border-radius: 0px;
+}
+#view #myTab .active{
+    background: #268371;
+}
+#view .tab-pane{
+    padding: 10px 10px 0px 10px;
+}
+#view #quantity_select{
+    border-style: none;
+    box-shadow: none;
+    padding: 5px;
+    font-size: 20px;
+}
+#view .col-form{
+    padding: 5px 0px;
+}
+/*------------------Поиск--------------*/
+section#search{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#search h3{
+    margin: 5px 0px 20px 0px;
+}
+#search .card-item {
+    padding: 15px;
+}
+#search .card-footer{
+    border-top: 0px;
+    background: white;
+}
+#search .card-img-top {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+}
+/*------------------Авторизация--------------*/
+#auth .item_field{
+    border: 0px;
+    border-radius: 0px;
+    border-bottom: 2px solid #5DB4A3;
+}
+#container-auth{
+    margin: auto;
+}
+#auth h2{
+    margin: 100px 0px;
+    color: #5DB4A3;
+    text-align: center;
+}
+#auth h3{
+    margin: 20px 0px;
+    text-align: center;
+}
+@media (max-width: 450px) {
+    #container-auth{
+        width: 95%;
+    }
+}
+@media (max-width: 650px) and (min-width: 450px){
+    #container-auth{
+        width: 70%;
+    }
+}
+@media (min-width: 650px) {
+    #container-auth{
+        width: 50%;
+    }
+}
+#auth .errorlist{
+    color: red;
+}
+#auth a{
+    color: #268371;
+    text-decoration:none;
+}
+/*----------------Заказ-------------------*/
+section#order-complete, section#order{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#order .errorlist{
+    color: red;
+}
+#order .item_field{
+    border: 0px;
+    border-radius: 0px;
+    border-bottom: 2px solid #5DB4A3;
+}
+#order .order-col{
+    margin: 20px 0px;
+}
+/*----------------Покупка-------------------*/
+section#payment{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#payment h6{
+    margin: 20px 0px;
+    text-align: center;
+}
+#payment-partners{
+    margin-top: 50px;
+}
+/*----------------Доставка-------------------*/
+section#delivery{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#delivery h6{
+    margin: 20px 0px;
+    text-align: center;
+}
+#delivery-partners{
+    margin-top: 50px;
+}
+#delivery-partners img{
+    height: auto;
+    width: 80px;
+}
+/*----------------О нас-------------------*/
+section#about{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+#about h6{
+    margin: 20px 0px;
+    text-align: center;
+}
+#socials{
+    margin-top: 10px;
+}
+#socials a{
+    display: inline-block;
+}

@@ -1,0 +1,46 @@
+{% extends 'core/content.html'%}
+
+{% block maincontent %}
+<section id="order">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h6 class="text-center display-6">Оформление заказа</h6>
+                <div class="container-fluid order-col">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for f in form %}
+                        <p>{{f}}</p>
+                        {{f.errors}}
+                        {% endfor %}
+                        <button class="center btn btn-detail without_box dark-green" type="submit"> Подтвердить </button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 order-col">
+                <h6 class="text-center display-6">Выбранные товары</h6>
+                <div class="container-fluid order-col">
+                    <div class="row">
+                        {% for item in cart %}
+                            <div class="card-item col-12 col-lg-6 g-2">
+                                <div class="card h-100">
+                                    <img src="{{item.product.main_photo.url}}" class="card-img-top" alt="фото украшения">
+                                    <div class="card-body text-center" style="padding: 4px;">
+                                        <p class="card-text title-gray">{{item.product.title}} - {{item.quantity}} шт.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row mt-3 text-center">
+                        <p>
+                            Заказ на сумму {{cart.get_total_price|floatformat:"0"}}₽
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

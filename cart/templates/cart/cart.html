@@ -1,0 +1,58 @@
+{% extends "core/content.html"%}
+{% block maincontent %}
+<section id="cart" style="margin: 50px 0px;">
+    <div class="container-fluid">
+        <h6 class="text-center display-6">Корзина</h6>
+        {% if cart.products_updated %}
+        <p class="mt-4">
+            Внимание! Некоторые украшения могли быть удалены из корзины в связи с их отсутствием в наличии
+            <br>
+            Пожалуйста проверьте корзину и можете перейти к оформлению заказа
+        </p>
+        {% endif %}
+        {% if cart.is_not_empty %}
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Изображение</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Стоимость</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in cart %}
+                {% if item.product %}
+                <tr>
+                    <th scope="row">{{item.product.title}}</th>
+                    <td><img src="{{item.product.main_photo.url}}" style="width: 75px; height: 100%; object-fit: cover;"></td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.price|floatformat:"0"}}₽</td>
+                    <td>{{item.total_price|floatformat:"0"}}₽</td>
+                    <td>
+                        <a class="btn btn-underline without_box" href='{% url "jewelries" item.product.slug %}' style="background: #afd5ce; color:white;">
+                            Добавить
+                        </a>
+                        <a class="btn btn-underline without_box" href='{% url "cart_remove" item.product.slug %}' style="background: #fbc8c1; color:white;">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            <b>Итого</b> {{cart.get_total_price|floatformat:"0"}} ₽
+            <a href="{% url 'check_order' %}" class="btn btn-detail pretty-green without_box" style="margin-left: 20px;">Перейти к оформлению</a>
+        </p>
+        {% else %}
+        <p>
+            <b>Пока товаров нет</b>
+        </p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

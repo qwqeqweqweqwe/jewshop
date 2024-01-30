@@ -1,0 +1,168 @@
+{% extends 'core/content.html' %}
+{% load static %}
+
+{% block maincontent %}
+<section id="view">
+    <div class="row">
+        <div class="col-lg-5 col-md-12">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="{{jew.main_photo.url}}" class="d-block w-100" alt="Главное изображение">
+                </div>
+                {% for image_link in image_links%}
+                <div class="carousel-item">
+                  <img src="{{image_link}}" class="d-block w-100 h-100" alt="Второстепенное изображение">
+                </div>
+                {% endfor %}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span>
+                      <svg width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                          <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                      </svg>
+                  </span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span>
+                      <svg width="30" height="30" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                          <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                      </svg>
+                  </span>
+              </button>
+            </div>
+         </div>
+        <div class="col-lg-7 col-md-12">
+            <div class="tags">
+                <h4>
+                    {% if jew.is_in_stock %}
+                    <span class="badge tag pretty-green">В наличии</span>
+                    {% endif %}
+                    <span class="badge tag pretty-green">{{jew.metal_cat|capfirst}}</span>
+                    {% for material in jew.material_cats.all %}
+                        <span class="badge tag pretty-green">{{material|capfirst}}</span>
+                    {% endfor %}
+                </h4>
+            </div>
+            <div class="title">
+                <h4 class="display-4">{{jew.title}}</h4>
+            </div>
+            <div class="price">
+                <h5 class="display-5 price-gray">{{jew.price|floatformat:"0"}} ₽</h5>
+                {% if jew.is_in_stock %}
+                    {% if remain != 0 %}
+                        {% if in_cart == 0 %}
+                            <p>
+                                В наличии {{jew.quantity}} шт.
+                            </p>
+                        {% else %}
+                            <p>
+                                В корзине сейчас {{in_cart}} шт. (доступно ещё {{remain}} шт.)
+                            </p>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-small btn-detail pretty-green without_box" href='{% url "cart_add" jew.slug %}'>
+                                Добавить в корзину
+                            </a>
+                        {% else %}
+                            <a class="btn btn-small btn-detail pretty-green without_box" href='{% url "login"%}'>
+                                Войти или зарегистрироваться
+                            </a>
+                            <p>
+                                Для добавления товара в корзину необходимо войти в аккаунт или зарегистрироваться на сайте
+                            </p>
+                        {% endif %}
+                        {% if in_cart >= 1 %}
+                            <a class="btn btn-small btn-detail pretty-green without_box" href='{% url "cart" %}'>
+                                Перейти к корзине
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <p>
+                            В корзине сейчас {{in_cart}} шт. (больше не осталось)
+                        </p>
+                        <a class="btn btn-small btn-detail pretty-green without_box" href='{% url "cart" %}'>
+                            Перейти к корзине
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <p>
+                        Понравилось украшение? К сожалению, сейчас его нет в наличии, но я могу сделать его на заказ
+                        <br>
+                        Мои контакты ниже
+                    </p>
+                    {% for sub_item in footer.2.sub_items %}
+                        <a class="btn btn-underline pretty-green without_box" href="{{ sub_item.url }}" target="{{sub_item.target}}">
+                            {{sub_item.title}}
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <ul class="nav pretty-green" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="btn btn-detail pretty-green without_box active" id="params-tab" data-bs-toggle="tab" data-bs-target="#params" type="button" role="tab">
+                            Характеристики
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btn btn-detail pretty-green without_box" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">
+                            Об оплате
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="btn btn-detail pretty-green without_box" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab">
+                            О доставке
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="params" role="tabpanel">
+                        {% if jew.description %}
+                        <p>
+                            {{jew.description}}
+                        </p>
+                        {% endif %}
+                        {% if jew.weight %}
+                        <p>
+                            Вес: {{jew.weight}} г.
+                        </p>
+                        {% endif %}
+                        {% if jew.length %}
+                        <p>
+                            Длина: {{jew.length}} см.
+                        </p>
+                        {% endif %}
+                        {% if jew.width %}
+                        <p>
+                            Ширина: {{jew.width}} см.
+                        </p>
+                        {% endif %}
+                        <p>
+                            Материалы: {{jew.material_cats.all|join:", "|lower}}
+                        </p>
+                        {% if jew.extra %}
+                        <p>
+                            Дополнительно: {{jew.extra}}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="tab-pane fade" id="payment" role="tabpanel">
+                        <p>
+                            Оплатить можно банковской картой при оформлении заказа через интернет-магазин.<br>
+                            <a href="{% url 'payment' %}" target="_blank">Подробнее об оплате</a>
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="delivery" role="tabpanel">
+                        <p>
+                            - по Брянску день-в-день при оформлении заказа до 13 часов или на следующий день в удобное время<br>
+                            - доставка почтой России 1 классом в течении 5 рабочих дней<br>
+                             <a href="{% url 'delivery' %}" target="_blank">Подробнее об доставке</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
